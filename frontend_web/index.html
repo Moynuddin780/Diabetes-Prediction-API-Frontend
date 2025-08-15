@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Diabetes Prediction</title>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+  <div class="container">
+    <h1>🩺 Diabetes Prediction (Pima)</h1>
+
+    <!-- Set your backend API URL here -->
+    <script>
+      const API_URL = localStorage.getItem("API_URL") || "http://127.0.0.1:8000";
+    </script>
+
+    <div class="grid">
+      <label>Pregnancies <input id="Pregnancies" type="number" value="3" min="0"/></label>
+      <label>Glucose <input id="Glucose" type="number" value="145" min="0" step="0.1"/></label>
+      <label>BloodPressure <input id="BloodPressure" type="number" value="70" min="0" step="0.1"/></label>
+      <label>SkinThickness <input id="SkinThickness" type="number" value="20" min="0" step="0.1"/></label>
+      <label>Insulin <input id="Insulin" type="number" value="85" min="0" step="0.1"/></label>
+      <label>BMI <input id="BMI" type="number" value="33.6" min="0" step="0.1"/></label>
+      <label>DPF <input id="DiabetesPedigreeFunction" type="number" value="0.35" min="0" step="0.01"/></label>
+      <label>Age <input id="Age" type="number" value="29" min="0"/></label>
+    </div>
+
+    <button id="predictBtn">Predict</button>
+
+    <div id="output"></div>
+
+    <details>
+      <summary>Settings</summary>
+      <label>Backend API URL <input id="apiUrl" type="text" /></label>
+      <button id="saveUrl">Save API URL</button>
+    </details>
+  </div>
+
+  <script>
+    document.getElementById("apiUrl").value = API_URL;
+    document.getElementById("saveUrl").onclick = () => {
+      const url = document.getElementById("apiUrl").value.trim();
+      localStorage.setItem("API_URL", url);
+      alert("Saved! Reload the page to apply.");
+    };
+
+    document.getElementById("predictBtn").onclick = async () => {
+      const payload = {
+        Pregnancies: parseInt(document.getElementById("Pregnancies").value),
+        Glucose: parseFloat(document.getElementById("Glucose").value),
+        BloodPressure: parseFloat(document.getElementById("BloodPressure").value),
+        SkinThickness: parseFloat(document.getElementById("SkinThickness").value),
+        Insulin: parseFloat(document.getElementById("Insulin").value),
+        BMI: parseFloat(document.getElementById("BMI").value),
+        DiabetesPedigreeFunction: parseFloat(document.getElementById("DiabetesPedigreeFunction").value),
+        Age: parseInt(document.getElementById("Age").value)
+      };
+      const out = document.getElementById("output");
+      out.innerText = "Predicting...";
+
+      try {
+        const res = await fetch(`${API_URL}/predict`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+        if (!res.ok) {
+          out.innerText = `API error: ${res.status}`;
+          return;
+        }
+        const data = await res.json();
+        out.innerHTML = `<div class="card">
+          <p><strong>Result:</strong> ${data.result}</p>
+          <p><strong>Prediction:</strong> ${data.prediction}</p>
+          <p><strong>Confidence:</strong> ${data.confidence}</p>
+        </div>`;
+      } catch (e) {
+        out.innerText = "Failed to contact API: " + e;
+      }
+    };
+  </script>
+</body>
+</html>
