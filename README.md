@@ -3,7 +3,7 @@
 
 This project trains multiple classifiers on the **Pima Indians Diabetes** dataset, serves predictions via a **FastAPI** backend, containerizes with **Docker**, deploys to **Render**, and includes two frontend options: **Streamlit** and a simple **HTML+JS** page.
 
-💾 ****Project Live Video Link** [ Click Here ](https://drive.google.com/file/d/16eT5rVdAAf4TbyQxhZYk8xnfDLhBzRs4/view?usp=sharing)
+💾 ****Project Live Video Link** [ Click Here ](https://drive.google.com/file/d/1PIMBadZhDuzeik55G8VjxSN9WLZkusJ-/view?usp=sharing)
 
 ---
 
