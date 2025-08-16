@@ -1,9 +1,9 @@
 
-# Diabetes Prediction API & Frontend (Pima Indians Dataset)
+# Diabetes Prediction API & Frontend
 
 This project trains multiple classifiers on the **Pima Indians Diabetes** dataset, serves predictions via a **FastAPI** backend, containerizes with **Docker**, deploys to **Render**, and includes two frontend options: **Streamlit** and a simple **HTML+JS** page.
 
-> **Note:** The dataset file `diabetes.csv` is **not** included. Download it from Kaggle/UC Irvine and place it at the project root before training.
+💾 ****Project Live Video Link** [ Click Here ](https://drive.google.com/file/d/16eT5rVdAAf4TbyQxhZYk8xnfDLhBzRs4/view?usp=sharing)
 
 ---
 
@@ -150,4 +150,4 @@ docker-compose up --build
 - [x] Clean folder structure
 - [x] Sample request payload
 
-Good luck! ✨
+Thanks..
